@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+    <script src="socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    {{!-- <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous">
+    </script> --}}
+    <script src="/index.js"></script>
+    
+  <!--Link for button-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="/app.css">
+    <link rel="stylesheet" href="/card.css">
+    <link rel="stylesheet" href="/index.css">
+    <link rel="stylesheet" href="/landing.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+    <title>Home</title>
+</head>
+<body>
+  <div class="wrapper">
+        <!-- Sidebar  -->
+        <nav id="sidebar">
+            <div class="sidebar-header">
+                {{!-- <h3><span>S</span>emjong Water Project</h3> --}}
+            <h5>DE-SUUNG NATIONAL SERVICE WATER PROJECT</h5>
+            </div>
+            <p>Semjong Integrated Water Supply Pilot Project</p>
+
+            <ul class="list-unstyled components">
+                <li class="active"><a href="/">Home</a></li>
+                {{#if user}}
+                <li><a href="http://gorilline-bloodhound-5820.dataplicity.io">Water Scheduling</a></li>
+                <li>
+                    <a href="/about">About Us</a>
+                </li>
+                <li>
+                    <a href="/alarm">Alarm & Events</a>
+                </li>
+                <li><a href="/register">Register</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+                {{else}}
+                <li><a href="/login">Login</a></li>
+                {{/if}}
+            </ul>
+            <div class="contacts">
+                <h3>Contact Details:</h3>
+                <div class="contact">
+                    <div class="place">
+                        <span class="fas fa-map-marker-alt"></span>
+                        <span class="text">Semjong, Tsirang</span>
+                    </div>
+                    <div class="phone">
+                        <span class="fas fa-phone"></span>
+                        <span class="text">+975 17301623</span>
+                    </div> <div class="email">
+                        {{!-- <span class="fas fa-envelope"></span> --}}
+                        <span class="text">namgayagri@gmail.com</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="contacts">
+                
+                <div class="contact">
+                    <label>Presented by:</label>
+                    <div class="place">
+                        <span class="fas fa-map-marker-alt"></span>
+                        <span class="text">DRIVE, Innotech dept. DHI</span>
+                    </div>
+                </div>
+            </div>
+            
+        </nav>
+
+        <!-- Page Content  -->
+        <div id="content">
+            <nav class="navbar navbar-custom">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-info">
+                        <i class="fas fa-align-left"></i>
+                        <!-- <span>Dash</span> -->
+                    </button>
+                    <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <i class="fas fa-align-justify"></i>
+                    </button>
+
+                    <div class="headimg">
+                        <div class="desung">
+                            <img src="/logo.png">
+                        </div>
+                        <div class="dhi">
+                            <img src="/DHI.png">
+                        </div>
+                        <div class="gyelsung">
+                           <img src="/rogb.png">
+                        </div>
+                    </div>
+                </div>
+            </nav>
+             {{#if user}}
+             <script type = "text/javascript">  
+                levelfunc()
+            </script> 
+            <div class="cards">
+                 <div class="cardright">
+                    <div class="cardright-text">
+                        <h2>Incoming Flow</h2>
+                        <p>Flow rate<br/> of transmisson main pipe </p>
+                    </div>
+                    <div class="cardright-stats">
+                      <div class="stat">
+                        <div class="value">Flow in: (m<sup>3</sup>/<sub>hr</sub>)</div>
+                        <div class="type">
+                            <input id="flowincoming" type="text">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="cardright">
+                     <div class="card-text">
+                      <h2>Reservoir Tank</h2>
+                      <p>Level and volume<br/> of reservoir tank </p>
+                    </div>
+                    <div class="card-stats">
+                      <div class="stat">
+                        <div class="value">Level in (meter)</div>
+                        <div class="type">
+                            <input id="tanklevel" type="text">
+                        </div>
+                      </div>
+                      <div class="stat border">
+                        <div class="value">Tank Volume(m<sup>3</sup>)</div>
+                        <div class="type">
+                            <input id="tankvolume" type="text">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+
+                <div class="cardright">
+                     <div class="card-text">
+                      <h2>Drinking Tank</h2>
+                      <p>Level and volume <br/>of drinking tank</p>
+                    </div>
+                    <div class="card-stats">
+                      <div class="stat">
+                        <div class="value">Level in (meter)</div>
+                        <div class="type">
+                            <input id="drinkinglevel" type="text">
+                        </div>
+                      </div>
+                      <div class="stat border">
+                        <div class="value">Tank Volume(m<sup>3</sup>)</div>
+                        <div class="type">
+                            <input id="drinkingvolume" type="text">
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="cards2">
+
+                <div class="card2">
+                    <center>
+                        <input type="checkbox" name="cbox" id="cbox" onchange="onCbChange('cbox')" >
+                        <h3>Incoming valve control</h3>
+                    </center>
+                   <label id="status"></label>
+                </div>
+                
+                 
+                <div class="cardright">
+                    <div class="cardright-text">
+                        <h2>Drinking Outflow</h2>
+                        <p>Flow rate<br/> of drinking pipe</p>
+                    </div>
+                    <div class="cardright-stats">
+                      <div class="stat">
+                        <div class="value">Flow in: (m<sup>3</sup>/<sub>hr</sub>)</div>
+                        <div class="type">
+                            <input id="outflows" type="text">
+                        </div>
+                      </div>
+                    </div>
+                </div>  
+                <div class="card">
+                    <div class="card-text">
+                      <h2>Irrigation outflow</h2>
+                      <select id="zoneselect" onchange="getselectedvalue();">
+                          <option value="0">Choose One</option>
+                          <option value="1">Zone 1</option>
+                          <option value="2">Zone 2</option>
+                          <option value="3">Zone 3</option>
+                          <option value="4">Zone 4</option>
+                          <option value="5">Zone 5</option>
+                          <option value="6">Zone 6</option>
+                          <option value="7">Zone 7</option>
+                          <option value="8">Zone 8</option>
+                      </select>
+                      <p>Flows of irrigation pipe</p>
+                    </div>
+                    <div class="card-stats">
+                      <div class="stat">
+                        <div class="value">Flow Rate(m<sup>3</sup>/<sub>hr</sub>)</div>
+                        <div class="type">
+                            <input id="textbox" type="text">
+                        </div>
+                      </div>
+                      <div class="stat border">
+                        <div class="value">Total Flow(m<sup>3</sup>)</div>
+                        <div class="type">
+                            <input id="textbox1" type="text">
+                        </div>
+                      </div>
+                    </div>
+                </div>   
+        </div>
+
+        {{else}}
+                    <script type = "text/javascript">  
+                        frontpage()
+                    </script> 
+                    <div class="semjong">
+                        <img src="/images/overall_map.png" id="outimg" class="outimg">
+                        
+                        <div class="tank" data-tooltip='Tank level ' tank-height='Tank Height : 3.4 meters &#xa; Tank Capacity: 700K Litres &#xa;' id="tank"></div>
+                        <div class="zone1" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : 14 Nos &#xa; Area in Acre: 8.195 &#xa; Area in m2: 29013 &#xa;' id="zon2"></div>
+                        <div class="zone3" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : 5 Nos &#xa; Area in Acre:  13.529 &#xa; Area in m2: 33583 &#xa;' id="zon1"></div>
+                        <div class="zone2" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : 9 Nos &#xa; Area in Acre: 2.385 &#xa; Area in m2: 9651 &#xa;' id="zon3"></div>
+                        <div class="zone4" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : 3 Nos &#xa; Area in Acre: 4.199 &#xa; Area in m2: 16990 &#xa;' id="zon4"></div>
+                        <div class="zone5" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : 10 Nos &#xa; Area in Acre: 10.604 &#xa; Area in m2: 42903 &#xa;' id="zon5"></div>
+                        <div class="zone6" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : 9 Nos &#xa; Area in Acre: 6.434 &#xa; Area in m2: 8673 &#xa;' id="zon6"></div>
+                        <div class="zone7" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : 3 Nos &#xa; Area in Acre: 16.934 &#xa; Area in m2:48989 &#xa;' id="zon7"></div>
+                        <div class="zone8" total-flow='Total Flow :0.000(m3)' zone1-detail='&#xa; Number of Household : nill &#xa; Area in Acre: 9.609 &#xa; Area in m2:38878 &#xa;' id="zon8"></div>
+                        <div id="navcheck">
+                            <script>
+                                function checkbox1(val1){
+                                    
+                                    if(val1.checked){
+                                        document.getElementById("outimg").src = "/images/all_shaded.png";
+                                    }else{   
+                                        if(document.getElementById("ncb2").checked){
+                                            document.getElementById("outimg").src = "/images/reservoir.png";
+                                            
+                                        }else{
+                                            document.getElementById("outimg").src = "/images/overall_map.png";
+                                        } 
+                                    }
+
+                                }
+
+                                function checkbox2(val2){
+
+                                    if(val2.checked){
+                                        document.getElementById("outimg").src = "/images/reservoir.png";
+                                        
+                                    }else{
+                                        if(document.getElementById("ncb1").checked){
+                                            document.getElementById("outimg").src = "/images/all_shaded.png";
+                                        }else{
+                                            document.getElementById("outimg").src = "/images/overall_map.png";
+                                        } 
+                                    }
+                                }
+
+
+                            </script>
+                            <label for="ncb2">Reservoir</label>
+                            <input type="checkbox" name="ncb2" id="ncb2" onclick="checkbox2(this)"><br>
+                            <label for="ncb1">Zone</label>
+                            <input type="checkbox" name="ncb1" id="ncb1" onclick="checkbox1(this)"><br>
+                        </div>
+                        <div id="navzones">
+                            <script>
+
+                                function radiozone(val){
+                                    document.getElementById("outimg").src = `/images/${val.value}`;        
+                                }
+
+                            </script>
+                            <label>Zone 1</label>
+                            <input type="radio" value="z1.png" id="zone1" name="zonerd" onchange="radiozone(this)" ><br>
+                            <label>Zone 2</label>
+                            <input type="radio" value="z2.png" id="zone2" name="zonerd" onchange="radiozone(this)" ><br>
+                            <label>Zone 3</label>
+                            <input type="radio" value="z3.png" id="zone3" name="zonerd" onchange="radiozone(this)"><br>
+                            <label>Zone 4</label>
+                            <input type="radio" value="z4.png" id="zone4" name="zonerd" onchange="radiozone(this)"><br>
+                            <label>Zone 5</label>
+                            <input type="radio" value="z5.png" id="zone5" name="zonerd" onchange="radiozone(this)"><br>
+                            <label>Zone 6</label>
+                            <input type="radio" value="z6.png" id="zone5" name="zonerd" onchange="radiozone(this)"><br>
+                            <label>Zone 7</label>
+                            <input type="radio" value="z7.png" id="zone7" name="zonerd" onchange="radiozone(this)"><br>
+                            <label>Zone 8</label>
+                            <input type="radio" value="z8.png" id="zone8" name="zonerd" onchange="radiozone(this)"><br>
+                        </div>
+
+                    </div>
+
+                 {{/if}}
+       
+    </div>
+
+
+    <!-- jQuery CDN - Slim version (=without AJAX) -->
+    {{!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> --}}
+    <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js" integrity="sha384-cs/chFZiN24E4KMATLdqdvsezGxaGsi4hLGOzlXwp5UZB1LY//20VyM2taTB4QvJ" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm" crossorigin="anonymous"></script>
+    
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
